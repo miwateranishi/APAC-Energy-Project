@@ -15,7 +15,7 @@ Today=datetime.date.today()
 OneDay=datetime.timedelta(days=1)
 for City in CityList:
     for x in range(0,14):
-        URL = "http://api.worldweatheronline.com/premium/v1/weather.ashx?q="+City+",japan&format=xml&num_of_days=1&date="+str(Today-x*OneDay)+"&enddate="+str(Today-x*OneDay)+"&tp=1&key=194a10abdf390b7917dcc12bfe621"
+        URL = "http://api.worldweatheronline.com/premium/v1/weather.ashx?q="+City+",japan&format=xml&num_of_days=1&date="+str(Today-x*OneDay)+"&enddate="+str(Today-x*OneDay)+"&tp=1&key=KEYNUMBER"
         print(URL)
         R= requests.get(URL)
         if (City=="Kawasaki,Kanagawa"):
