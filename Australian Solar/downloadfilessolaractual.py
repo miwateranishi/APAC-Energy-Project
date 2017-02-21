@@ -1,6 +1,6 @@
-import urllib2
-import re
-import os
+import urllib2 # library allows to access url
+import re # Regular expression library. I used it to search for ".zip" extension in the links.
+import os # allows to open and write files
 import zipfile
 
 folder = "C:\Users\\thanh\Desktop\Solar_Data"
@@ -11,14 +11,14 @@ if not os.path.exists(folder): # Directory that I want to save the image to
 url = "http://www.nemweb.com.au/REPORTS/CURRENT/ROOFTOP_PV/ACTUAL/"
 source = urllib2.urlopen(url).read()
 
-datafiles = re.findall(r'[\w]+\.zip',source, re.M) # regex finds datafiles
+datafiles = re.findall(r'[\w]+\.zip',source, re.M) # regex finds datafiles with ending .zip
 
 
 for datafile in datafiles:
     remote = url + datafile;
     filename = folder + "/" + datafile
     print "Copying from " + remote + " to " + filename
-    if not os.path.exists(filename):
+    if not os.path.exists(filename): #only saves the file if a file with the same name does not exist
         f = open(filename, 'wb')
         f.write(urllib2.urlopen(remote).read())
         f.close()

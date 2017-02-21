@@ -1,20 +1,20 @@
-import urllib2
-import os
-from datetime import timedelta, date
-import html2text
-from shutil import copyfile
+import urllib2 # library allows to access url
+import os # allows to open and write files
+from datetime import timedelta, date # this library allows me to use timestamps.
+import html2text # this library allows me to conver a html page to a text file.
+from shutil import copyfile # this library allows me to copy the file.
 
 Cities = ["Canberra", "Newcastle", "Sydney", "Brisbane", "Goldcoast", "Adelaide", "Hobart", "Melbourne", "Perth"]
 
 folder = "C:\Users\\thanh\Desktop\Weather_Data"
 
-def daterange(start_date, end_date):
+def daterange(start_date, end_date): # I need this to loop from 15/11/2016 to "today". This is where I made the function to do tihs.
     for n in range(int ((end_date - start_date).days)):
         yield start_date + timedelta(n)
 
 start_date = date(2016, 11, 15)
 end_date = date.today()
-for single_date in daterange(start_date, end_date):
+for single_date in daterange(start_date, end_date): # this is the actual loop
     URLfile = single_date.strftime("%Y/%m/%d")
     datafile = single_date.strftime("%Y%m%d")
     Canberraurl = "https://www.wunderground.com/history/airport/YSCB/"+URLfile+"/DailyHistory.html?req_city=Canberra&req_statename=Australia&reqdb.zip=00000&reqdb.magic=1&reqdb.wmo=94926&format=1"
@@ -58,10 +58,10 @@ for single_date in daterange(start_date, end_date):
         filename = folder + "/"+City+"/" + datafile+".txt"
         if not os.path.exists(filename):
             print "Copying from " + url + " to " + filename
-            html2text.BODY_WIDTH = 0
-            html_content = urllib2.urlopen(url).read()
-            rendered_content = html2text.html2text(html_content)
+            html2text.BODY_WIDTH = 0 # displays word wrapping so no line breaks are made in the middle of a line.
+            html_content = urllib2.urlopen(url).read()  # read the html page
+            rendered_content = html2text.html2text(html_content) # convert it to text and save to variable rendered_content
             f = open(filename,'w')
-            f.write(rendered_content)
+            f.write(rendered_content) #save the txt file
             f.close()
             copyfile(filename, "//"+vm+"//c$//Users//thanh//Desktop//Weather_Data//"+ City +"//"+datafile + ".txt")

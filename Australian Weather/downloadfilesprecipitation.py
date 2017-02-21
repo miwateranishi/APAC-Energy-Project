@@ -1,8 +1,8 @@
-# note this script is not fully autonomous. You will need to access the stations via http://www.bom.gov.au/climate/data/ first. Can be fixed by using webdriver.
+# note this script is not fully autonomous. You will need to access the stations via http://www.bom.gov.au/climate/data/ first. This can be made autonomous by using the chrome webdriver library.
 
-import urllib2
-import re
-import os
+import urllib2 # library allows to access url
+import re # Regular expression library. I used it to search for ".zip" extension in the links.
+import os # allows to open and write files
 import zipfile
 
 Cities = ["Canberra", "Newcastle", "Sydney", "Brisbane", "Goldcoast", "Adelaide", "Hobart", "Melbourne"]
@@ -35,12 +35,10 @@ for City in Cities:
     elif City == "Melbourne":
         Station = "086338"
         vm = "Apac-intern-vm3"
-    read = "http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_nccObsCode=136&p_display_type=dailyDataFile&p_startYear=&p_c=&p_stn_num=="+Station
-    remote = "http://www.bom.gov.au/tmp/cdio/IDCJAC0009_"+Station+"_2017.zip"
-    filename = "C:\Users\\thanh\Desktop\Weather_Data"+"/"+City+"/Rainfall/rainfall.zip"
+    remote = "http://www.bom.gov.au/tmp/cdio/IDCJAC0009_"+Station+"_2017.zip" # This is the link to the file.
+    filename = "C:\Users\\thanh\Desktop\Weather_Data"+"/"+City+"/Rainfall/rainfall.zip" # This is where I want to save the file
     print "Copying from " + remote + " to " + filename
     f = open(filename,'wb')
-    urllib2.urlopen(read).read()
     f.write(urllib2.urlopen(remote).read())
     f.close()
     zip = zipfile.ZipFile(filename)
